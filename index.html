@@ -1,11 +1,30 @@
 <html>
     <head>
         <link rel="stylesheet" href="./style.css"/>
+
         
     </head>
     <body>
         Welcome html index page
         <b>This is demo home page</b>
-   <script src="./scriptcode.js"></script>
+       <form method="post" action="/getData">
+        <input type="text" name="username">
+        <input type="password" name="password">
+        <input type="submit"/>
+
+       </form>
+
+   <!-- <script src="./scriptcode.js"></script> -->
+    <script>
+        fetch("/getData",{
+            body:{
+
+            },
+            headers:{
+                "content-type":"application/json"
+            }
+            ,method:"GET"
+        })
+        </script>
     </body>
 </html>
