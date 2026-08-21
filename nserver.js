@@ -7,7 +7,8 @@ const path=require("path");
 const app= express();
 app.use(express.static("."));
 app.use(express.urlencoded({extended:true}));
-
+//simple - variable=value&variable=value
+//complex user[name]=value&user[age]=value
 
 app.get("/getData",(req,res)=>{
     //req.query
