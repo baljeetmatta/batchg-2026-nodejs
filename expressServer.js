@@ -1,10 +1,17 @@
 const express=require("express");
+const session=require("express-session")//function
 const app=express();
 const fs=require("fs");
 
 const path=require("path");
 app.use(express.static("."));
 app.use(express.urlencoded({extended:true}));
+app.use(session({
+    secret:"asdadasdas sa#$#sad54654@#$",
+    resave:false,
+    saveUninitialized:false,
+    cookie:{maxAge:1000*60*60}
+}))
 
 
 /* LOGIN ENDPOINTS*/
@@ -13,7 +20,12 @@ app.get("/login",(req,res)=>{
 
 })
 app.get("/dashboard",(req,res)=>{
-    res.sendFile(path.join(__dirname,"./Dashboard.html"));
+    //res.sendFile(path.join(__dirname,"./Dashboard.html"));
+    if(req.session.name)
+    res.send("Welcome to "+req.session.name)
+else
+    res.redirect("/login");
+
 
 })
 app.get("/signup",(req,res)=>{
@@ -40,7 +52,12 @@ app.post("/login",(req,res)=>{
 
     })
     if(results.length>=1)
+    {
+        req.session.name=results[0].name;
+
         res.redirect("/dashboard");
+    }
+
 
        // res.sendFile(path.join(__dirname,"./Dashboard.html"));
     else
